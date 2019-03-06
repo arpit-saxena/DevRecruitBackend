@@ -1,321 +1,104 @@
-*.gem
-*.rbc
-/.config
-/coverage/
-/InstalledFiles
-/pkg/
-/spec/reports/
-/spec/examples.txt
-/test/tmp/
-/test/version_tmp/
-/tmp/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Used by dotenv library to load environment variables.
-# .env
+# C extensions
+*.so
 
-## Specific to RubyMotion:
-.dat*
-.repl_history
+# Distribution / packaging
+.Python
 build/
-*.bridgesupport
-build-iPhoneOS/
-build-iPhoneSimulator/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-## Specific to RubyMotion (use of CocoaPods):
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# vendor/Pods/
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
 
-## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
-/doc/
-/rdoc/
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-## Environment normalization:
-/.bundle/
-/vendor/bundle
-/lib/bundler/man/
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
 
-# for a library or gem, you might want to ignore these files since the code is
-# intended to run in multiple environments; otherwise, check them in:
-# Gemfile.lock
-# .ruby-version
-# .ruby-gemset
+# Translations
+*.mo
+*.pot
 
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-
-
-# Created by https://www.gitignore.io/api/latex
-# Edit at https://www.gitignore.io/?templates=latex
-
-### LaTeX ###
-## Core latex/pdflatex auxiliary files:
-*.aux
-*.lof
+# Django stuff:
 *.log
-*.lot
-*.fls
-*.out
-*.toc
-*.fmt
-*.fot
-*.cb
-*.cb2
-.*.lb
+local_settings.py
+db.sqlite3
 
-## Intermediate documents:
-*.dvi
-*.xdv
-*-converted-to.*
-# these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-*.pdf
+# Flask stuff:
+instance/
+.webassets-cache
 
-## Generated if empty string is given at "Please type another file name for output:"
-.pdf
+# Scrapy stuff:
+.scrapy
 
-## Bibliography auxiliary files (bibtex/biblatex/biber):
-*.bbl
-*.bcf
-*.blg
-*-blx.aux
-*-blx.bib
-*.run.xml
+# Sphinx documentation
+docs/_build/
 
-## Build tool auxiliary files:
-*.fdb_latexmk
-*.synctex
-*.synctex(busy)
-*.synctex.gz
-*.synctex.gz(busy)
-*.pdfsync
+# PyBuilder
+target/
 
-## Build tool directories for auxiliary files
-# latexrun
-latex.out/
+# Jupyter Notebook
+.ipynb_checkpoints
 
-## Auxiliary and intermediate files from other packages:
-# algorithms
-*.alg
-*.loa
+# pyenv
+.python-version
 
-# achemso
-acs-*.bib
+# celery beat schedule file
+celerybeat-schedule
 
-# amsthm
-*.thm
+# SageMath parsed files
+*.sage.py
 
-# beamer
-*.nav
-*.pre
-*.snm
-*.vrb
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# changes
-*.soc
+# Spyder project settings
+.spyderproject
+.spyproject
 
-# comment
-*.cut
+# Rope project settings
+.ropeproject
 
-# cprotect
-*.cpt
+# mkdocs documentation
+/site
 
-# elsarticle (documentclass of Elsevier journals)
-*.spl
-
-# endnotes
-*.ent
-
-# fixme
-*.lox
-
-# feynmf/feynmp
-*.mf
-*.mp
-*.t[1-9]
-*.t[1-9][0-9]
-*.tfm
-
-#(r)(e)ledmac/(r)(e)ledpar
-*.end
-*.?end
-*.[1-9]
-*.[1-9][0-9]
-*.[1-9][0-9][0-9]
-*.[1-9]R
-*.[1-9][0-9]R
-*.[1-9][0-9][0-9]R
-*.eledsec[1-9]
-*.eledsec[1-9]R
-*.eledsec[1-9][0-9]
-*.eledsec[1-9][0-9]R
-*.eledsec[1-9][0-9][0-9]
-*.eledsec[1-9][0-9][0-9]R
-
-# glossaries
-*.acn
-*.acr
-*.glg
-*.glo
-*.gls
-*.glsdefs
-
-# gnuplottex
-*-gnuplottex-*
-
-# gregoriotex
-*.gaux
-*.gtex
-
-# htlatex
-*.4ct
-*.4tc
-*.idv
-*.lg
-*.trc
-*.xref
-
-# hyperref
-*.brf
-
-# knitr
-*-concordance.tex
-# TODO Comment the next line if you want to keep your tikz graphics files
-*.tikz
-*-tikzDictionary
-
-# listings
-*.lol
-
-# makeidx
-*.idx
-*.ilg
-*.ind
-*.ist
-
-# minitoc
-*.maf
-*.mlf
-*.mlt
-*.mtc[0-9]*
-*.slf[0-9]*
-*.slt[0-9]*
-*.stc[0-9]*
-
-# minted
-_minted*
-*.pyg
-
-# morewrites
-*.mw
-
-# nomencl
-*.nlg
-*.nlo
-*.nls
-
-# pax
-*.pax
-
-# pdfpcnotes
-*.pdfpc
-
-# sagetex
-*.sagetex.sage
-*.sagetex.py
-*.sagetex.scmd
-
-# scrwfile
-*.wrt
-
-# sympy
-*.sout
-*.sympy
-sympy-plots-for-*.tex/
-
-# pdfcomment
-*.upa
-*.upb
-
-# pythontex
-*.pytxcode
-pythontex-files-*/
-
-# tcolorbox
-*.listing
-
-# thmtools
-*.loe
-
-# TikZ & PGF
-*.dpth
-*.md5
-*.auxlock
-
-# todonotes
-*.tdo
-
-# vhistory
-*.hst
-*.ver
-
-# easy-todo
-*.lod
-
-# xcolor
-*.xcp
-
-# xmpincl
-*.xmpi
-
-# xindy
-*.xdy
-
-# xypic precompiled matrices
-*.xyc
-
-# endfloat
-*.ttt
-*.fff
-
-# Latexian
-TSWLatexianTemp*
-
-## Editors:
-# WinEdt
-*.bak
-*.sav
-
-# Texpad
-.texpadtmp
-
-# LyX
-*.lyx~
-
-# Kile
-*.backup
-
-# KBibTeX
-*~[0-9]*
-
-# auto folder when using emacs and auctex
-./auto/*
-*.el
-
-# expex forward references with \gathertags
-*-tags.tex
-
-# standalone packages
-*.sta
-
-### LaTeX Patch ###
-# glossaries
-*.glstex
-
-# End of https://www.gitignore.io/api/latex
+# mypy
+.mypy_cache/
