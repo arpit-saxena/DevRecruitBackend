@@ -1,1 +1,1 @@
-web: gunicorn bazaar.wsgi
+web: gunicorn bazaar.wsgi --log-file -
