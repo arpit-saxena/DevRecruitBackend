@@ -39,8 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'index.apps.IndexConfig',
+    'users.apps.UsersConfig',
+
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +68,7 @@ ROOT_URLCONF = 'bazaar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +89,8 @@ WSGI_APPLICATION = 'bazaar.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgres://admin:admin@127.0.0.1/db')
+        #os.environ.get('DATABASE_URL', 'postgres://admin:admin@127.0.0.1/db')
+        'postgres://admin:admin@127.0.0.1/db'
     )
 }
 
@@ -100,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -122,3 +136,14 @@ STATIC_URL = '/static/'
 
 django_heroku.settings(locals())
 
+# Settings for allauth
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGOUT_ON_GET = True
