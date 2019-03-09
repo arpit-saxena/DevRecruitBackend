@@ -21,7 +21,8 @@ class Product(models.Model):
         models.SET_NULL,
         null=True,
         blank=True,
-        related_name='product_approved_by'
+        related_name='product_approved_by',
+        limit_choices_to={'is_staff': True},
     )
     added_by = models.ForeignKey(
         'users.CustomUser',
@@ -45,3 +46,25 @@ class Product(models.Model):
         decimal_places=2,
     )   
     negotiable = models.BooleanField(default=False)
+
+class Transaction(models.Model):
+    seller = models.ForeignKey(
+        'users.CustomUser',
+        models.SET_NULL,
+        related_name='product_sold_by',
+        null=True,
+    )
+    buyer = models.ForeignKey(
+        'users.CustomUser',
+        models.SET_NULL,
+        related_name='product_sold_to',
+        null=True,
+    )
+    product = models.ForeignKey(
+        'Product',
+        models.PROTECT
+    )
+    time = models.DateTimeField(
+        'Time of transaction',
+        auto_now_add=True
+    )
