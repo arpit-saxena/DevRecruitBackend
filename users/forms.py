@@ -6,11 +6,13 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('username', 'email')
+        fields = UserCreationForm.Meta.fields
+        exclude = ('date_joined', 'username', )
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
         fields = UserChangeForm.Meta.fields
+        exclude = ('date_joined', 'username', )
         
