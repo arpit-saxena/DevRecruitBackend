@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from mptt.models import MPTTModel, TreeForeignKey
+from django.shortcuts import reverse
+import hash_info
 
 # Create your models here.
 class Category(MPTTModel):
@@ -50,6 +52,20 @@ class Product(models.Model):
         decimal_places=2,
     )   
     negotiable = models.BooleanField(default=False)
+    my_hash = models.TextField(
+        blank=True,
+        null=True,
+    )
+    slug = models.TextField(
+        blank=True,
+    )
+
+    def get_absolute_url(self):
+        return reverse("view_product", kwargs={
+            "slug": self.slug,
+            "my_hash": self.my_hash,
+        })
+    
 
 class Transaction(models.Model):
     seller = models.ForeignKey(

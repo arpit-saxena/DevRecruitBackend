@@ -29,5 +29,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     #Products
-    path('products/', include('products.urls'))
+    path('product/', include('products.urls'))
 ]
