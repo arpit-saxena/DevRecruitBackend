@@ -1,0 +1,12 @@
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ product_form }}
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form }}
+        {% endfor %}
+    </table>
+    <input type="submit" value="Add product!"/>
+</form>

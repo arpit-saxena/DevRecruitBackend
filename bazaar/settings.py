@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
-    'mptt',
+    'mptt', #Tree traversal for categories
+    'django_cleanup', #Remove images stored locally on record deletion
 
     # 'index.apps.IndexConfig',
     'users.apps.UsersConfig',

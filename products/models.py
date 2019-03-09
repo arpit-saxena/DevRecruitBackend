@@ -11,8 +11,11 @@ class Category(MPTTModel):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='parent_category_name',
+        related_name='child_category_name',
     )
+
+    def __str__(self):
+        return self.name
 
     class MPTTMeta:
         order_insertion_by = ['id']
@@ -26,7 +29,7 @@ class Product(models.Model):
         models.SET_NULL,
         null=True,
         blank=True,
-        related_name='product_approved_by',
+        related_name='products_approved',
         limit_choices_to={'is_staff': True},
     )
     added_by = models.ForeignKey(
@@ -34,16 +37,12 @@ class Product(models.Model):
         models.CASCADE,
         null=True,
         blank=True,
-        related_name='product_added_by'
+        related_name='products_added'
     )
     category = models.ForeignKey(
         'Category',
         models.SET_NULL,
         null=True
-    )
-    images = ArrayField(
-        models.ImageField("Product Image"),
-        size=5,
     )
     price = models.DecimalField(
         "Price of the product (in INR)",
@@ -56,13 +55,13 @@ class Transaction(models.Model):
     seller = models.ForeignKey(
         'users.CustomUser',
         models.SET_NULL,
-        related_name='product_sold_by',
+        related_name='products_sold',
         null=True,
     )
     buyer = models.ForeignKey(
         'users.CustomUser',
         models.SET_NULL,
-        related_name='product_sold_to',
+        related_name='products_bought',
         null=True,
     )
     product = models.ForeignKey(
@@ -72,4 +71,18 @@ class Transaction(models.Model):
     time = models.DateTimeField(
         'Time of transaction',
         auto_now_add=True
+    )
+
+#Helper class to store images
+class Images(models.Model):
+    product = models.ForeignKey(
+        Product,
+        models.CASCADE,
+        default=None,
+        related_name='product_image',
+    )
+
+    image = models.ImageField(
+        upload_to='uploads/',
+        verbose_name='Image',
     )
