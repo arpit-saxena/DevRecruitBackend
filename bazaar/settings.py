@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'index.apps.IndexConfig',
     'users.apps.UsersConfig',
+    'products.apps.ProductsConfig',
 
 ]
 
