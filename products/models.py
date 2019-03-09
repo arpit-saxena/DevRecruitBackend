@@ -10,7 +10,7 @@ class Category(models.Model):
         null=True,
     )
     name = models.CharField("Category name", max_length=50)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
 class Product(models.Model):
     name = models.TextField("Product name")
@@ -43,5 +43,5 @@ class Product(models.Model):
         "Price of the product (in INR)",
         max_digits=8, #Max amount 9,99,999.99 (more than sufficient)
         decimal_places=2,
-    )
+    )   
     negotiable = models.BooleanField(default=False)
