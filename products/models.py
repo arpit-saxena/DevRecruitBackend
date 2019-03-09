@@ -1,16 +1,21 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from mptt.models import MPTTModel, TreeForeignKey
 
 # Create your models here.
-class Category(models.Model):
-    parent_id = models.ForeignKey(
-        'self',
-        models.CASCADE,
-        blank=True,
-        null=True,
-    )
+class Category(MPTTModel):
     name = models.CharField("Category name", max_length=50)
     description = models.TextField(blank=True, null=True)
+    parent = TreeForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='parent_category_name',
+    )
+
+    class MPTTMeta:
+        order_insertion_by = ['id']
 
 class Product(models.Model):
     name = models.TextField("Product name")

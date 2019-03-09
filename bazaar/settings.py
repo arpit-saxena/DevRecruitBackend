@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+    'mptt',
+
     # 'index.apps.IndexConfig',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',

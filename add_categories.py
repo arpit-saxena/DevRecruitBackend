@@ -11,7 +11,7 @@ def recurse_add(parent, depth, source):
         child_categ.name = child_categ_name
 
         if parent:
-            child_categ.parent_id = parent
+            child_categ.parent = parent
 
         child_categ.save()
         last_line = recurse_add(child_categ, tabs+1, source)
