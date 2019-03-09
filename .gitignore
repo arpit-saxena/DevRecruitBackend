@@ -108,3 +108,6 @@ venv.bak/
 
 # Django Migrations
 */migrations/*
+
+# Uploads to server
+/uploads/*
