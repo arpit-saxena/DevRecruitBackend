@@ -110,4 +110,4 @@ venv.bak/
 */migrations/*
 
 # Uploads to server
-/uploads/*
+*/media/uploads/*

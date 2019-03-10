@@ -1,0 +1,48 @@
+<b> Category: </b>
+
+{% for ancestor in category_qset %}
+    <a href="{% url 'view_category' ancestor.my_hash ancestor.slug %}">
+        {{ ancestor.name }} 
+    </a>
+    > 
+{% endfor %}
+
+{% with object.category as c %}
+    <a href="{% url 'view_category' c.my_hash c.slug %}">
+        {{c.name}}
+    </a>
+{% endwith %}
+
+<h1> Product name: {{ object.name }} </h1>
+
+<h2>
+    Product description:
+</h2>
+<p><b>
+    {{ object.description }}
+</b></p>
+
+Buy now for Rs. {{ object.price }}
+{% if object.negotiable %}(Negotiable){% endif %}
+
+<br>
+
+Seller: <a href="{% url 'view_user' object.added_by.my_hash object.added_by.slug %}">
+    {{ object.added_by.get_full_name }} 
+</a> <br>
+
+<b> Product Images: </b>
+<ul style="list-style-type:none">
+{% for image in product.product_image.all %}
+    <li><img src = "/{{ image.image.url }}" /></li>
+{% endfor %}
+</ul>
+
+<br>
+
+{% if request.user.is_authenticated %}
+    Contact the seller at {{ object.added_by.phone_number }} or 
+    {{ object.added_by.email }} to buy this product.
+{% else %}
+    Please <a href = "{% url 'account_login' %}"> login </a> to buy the product.
+{% endif %}

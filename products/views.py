@@ -84,6 +84,7 @@ class viewProductClass(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category_qset'] = self.kwargs.get('category_qset')
         return context
     
 def viewProduct(request, my_hash, slug):
@@ -97,7 +98,8 @@ def viewProduct(request, my_hash, slug):
     if need_to_redirect:
         return redirect(product, permanent=True)
 
-    return viewProductClass.as_view()(request, product=product)
+    return viewProductClass.as_view()(request, product=product,
+    category_qset=product.category.get_ancestors())
 
 """ class viewProduct(DetailView):
     model = Product
