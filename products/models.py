@@ -15,12 +15,25 @@ class Category(MPTTModel):
         blank=True,
         related_name='child_category_name',
     )
+    my_hash = models.TextField(
+        blank=True,
+        null=True,
+    )
+    slug = models.TextField(
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
 
     class MPTTMeta:
         order_insertion_by = ['id']
+
+    def get_absolute_url(self):
+        return reverse("view_category", kwargs={
+            "slug": self.slug,
+            "my_hash": self.my_hash,
+        })
 
 class Product(models.Model):
     name = models.TextField("Product name")
@@ -65,7 +78,6 @@ class Product(models.Model):
             "slug": self.slug,
             "my_hash": self.my_hash,
         })
-    
 
 class Transaction(models.Model):
     seller = models.ForeignKey(

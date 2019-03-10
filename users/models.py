@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.shortcuts import reverse
 
 class CustomUserManager(UserManager):
     pass
@@ -11,6 +12,13 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=13)
     date_joined = models.DateTimeField(auto_now_add=True)
+    my_hash = models.TextField(
+        blank=True,
+        null=True,
+    )
+    slug = models.TextField(
+        blank=True,
+    )
 
     REQUIRED_FIELDS = [
         'first_name',
@@ -19,3 +27,9 @@ class CustomUser(AbstractUser):
         'username',
     ]
     USERNAME_FIELD = 'email'
+
+    def get_absolute_url(self):
+        return reverse("view_user", kwargs={
+            "slug": self.slug,
+            "my_hash": self.my_hash
+        })

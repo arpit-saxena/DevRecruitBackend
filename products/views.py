@@ -54,19 +54,44 @@ def addProduct(request):
         }
     )
 
-def viewProduct(request, my_hash, slug):
-    product_ids = hash_info.PRODUCT.decode(my_hash)
+def redirecter(my_hash, slug, hasher, my_class):
+    object_ids = hasher.decode(my_hash)
 
-    if len(product_ids) != 1:
+    if len(object_ids) != 1:
         raise Http404("Hash is wrong")
-    product_id = product_ids[0]
+    object_id = object_ids[0]
 
     try:
-        product = Product.objects.get(pk=product_id)
-    except Product.DoesNotExist:
-        raise Http404("Product id corresponding to hash doesn't exist")
+        obj = my_class.objects.get(pk=object_id)
+    except my_class.DoesNotExist:
+        raise Http404("id corresponding to hash doesn't exist")
     
-    if slug != product.slug:
-        return redirect(product)
+    if slug != obj.slug:
+        return obj, True
+    return obj, False
 
+def viewProduct(request, my_hash, slug):
+    product, need_to_redirect = redirecter(
+        my_hash,
+        slug,
+        hash_info.PRODUCT,
+        Product
+    )
+
+    if need_to_redirect:
+        return redirect(product, permanent=True)
+
+    return HttpResponse("YAY!")
+
+def viewCategory(request, my_hash, slug):
+    category, need_to_redirect = redirecter(
+        my_hash,
+        slug,
+        hash_info.CATEGORY,
+        Category
+    )
+
+    if need_to_redirect:
+        return redirect(category, permanent=True)
+        
     return HttpResponse("YAY!")

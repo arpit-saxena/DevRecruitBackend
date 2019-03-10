@@ -24,10 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # User Management
-    # path('users/', include('users.urls')),
+    path('user/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('accounts/', include('allauth.urls')),
 
     #Products
-    path('product/', include('products.urls'))
+    path('product/', include('products.urls')),
+    path('category/', include('products.category_urls')),
 ]
