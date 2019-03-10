@@ -33,3 +33,6 @@ class CustomUser(AbstractUser):
             "slug": self.slug,
             "my_hash": self.my_hash
         })
+
+    def get_full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)

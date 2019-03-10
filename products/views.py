@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
+from django.views.generic.detail import DetailView
 
 from .models import Product, Category, Images
 from .forms import ProductForm, CategoryForm, ImageForm
@@ -70,18 +71,58 @@ def redirecter(my_hash, slug, hasher, my_class):
         return obj, True
     return obj, False
 
+class viewProductClass(DetailView):
+    model = Product
+    template_name = 'products/viewproduct.html'
+
+    def get_object(self):
+        product = self.kwargs.get('product')
+        if product:
+            return product
+        
+        return super().get_object(self)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
 def viewProduct(request, my_hash, slug):
     product, need_to_redirect = redirecter(
         my_hash,
         slug,
         hash_info.PRODUCT,
         Product
-    )
+    )   
 
     if need_to_redirect:
         return redirect(product, permanent=True)
 
-    return HttpResponse("YAY!")
+    return viewProductClass.as_view()(request, product=product)
+
+""" class viewProduct(DetailView):
+    model = Product
+
+    def get_object()
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            product, need_to_redirect = redirecter(
+                kwargs['my_hash'],
+                kwargs['slug'],
+                hash_info.PRODUCT,
+                Product
+            )
+
+            if need_to_redirect:
+                return redirect(product, permanent=True)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context """
 
 def viewCategory(request, my_hash, slug):
     category, need_to_redirect = redirecter(
