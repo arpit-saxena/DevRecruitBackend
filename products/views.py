@@ -101,31 +101,6 @@ def viewProduct(request, my_hash, slug):
     return viewProductClass.as_view()(request, product=product,
     category_qset=product.category.get_ancestors())
 
-""" class viewProduct(DetailView):
-    model = Product
-
-    def get_object()
-
-    def get(self, request, *args, **kwargs):
-        try:
-            self.object = self.get_object()
-        except Http404:
-            product, need_to_redirect = redirecter(
-                kwargs['my_hash'],
-                kwargs['slug'],
-                hash_info.PRODUCT,
-                Product
-            )
-
-            if need_to_redirect:
-                return redirect(product, permanent=True)
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context """
-
 def viewCategory(request, my_hash, slug):
     category, need_to_redirect = redirecter(
         my_hash,
