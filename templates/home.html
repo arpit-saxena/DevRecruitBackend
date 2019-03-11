@@ -1,7 +1,7 @@
 {% load socialaccount %}
 
-<h1>IIT Delhi Bazaar</h1>
-Buy and sell within IIT Delhi's community
+{% include 'navbar.html' with dont_show_navbar=True %}
+
 {% if user.is_authenticated %}
 
 <p>Welcome {{ user.first_name }} !!!</p>

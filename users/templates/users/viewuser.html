@@ -1,3 +1,5 @@
+{% include 'navbar.html' %}
+
 <b> Profile page: {{ user.get_full_name }} </b>
 
 <ul>
@@ -16,3 +18,14 @@ Products added by {{ user.first_name }}:
         </li>
     {% endfor %}
 </ul>
+
+{% if request.user.is_authenticated %}
+    Contact info:
+    <ul>
+        <li> Phone number: {{ user.phone_number }} </li>
+        <li> Email address: <a href="mailto:{{ user.email }}"> {{ user.email }} </a> </li>
+    </ul>
+{% else %}
+    Please <a href="{% url 'account_login' %}/next={{ request.path }}"> login </a>
+    to view {{ user.first_name }}'s contact info.
+{% endif %}

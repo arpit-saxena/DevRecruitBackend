@@ -1,0 +1,14 @@
+<h1> IIT Delhi Bazaar </h1>
+{% if dont_show_navbar %}
+{% else %}
+    <nav>
+        <a href = "{% url 'home' %}"> Home </a>
+        {% if request.user.is_authenticated %}
+            &nbsp;<a href = {% url 'account_logout' %}>Logout</a>
+        {% else %}
+            &nbsp;<a href = "{% url 'account_login' %}">Login</a>
+            &nbsp;<a href= "{% url 'account_signup' %}">Signup</a>
+        {% endif %}
+</nav>
+{% endif %}
+<hr>
