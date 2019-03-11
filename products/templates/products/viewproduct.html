@@ -44,5 +44,6 @@ Seller: <a href="{% url 'view_user' object.added_by.my_hash object.added_by.slug
     Contact the seller at {{ object.added_by.phone_number }} or 
     {{ object.added_by.email }} to buy this product.
 {% else %}
-    Please <a href = "{% url 'account_login' %}"> login </a> to buy the product.
+    Please <a href = "{% url 'account_login' %}?next={{ request.path }}"> login </a>
+    to buy the product.
 {% endif %}
