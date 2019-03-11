@@ -1,17 +1,5 @@
 <b> Category: </b>
-
-{% for ancestor in category_qset %}
-    <a href="{% url 'view_category' ancestor.my_hash ancestor.slug %}">
-        {{ ancestor.name }} 
-    </a>
-    > 
-{% endfor %}
-
-{% with object.category as c %}
-    <a href="{% url 'view_category' c.my_hash c.slug %}">
-        {{c.name}}
-    </a>
-{% endwith %}
+{% include 'products/category_breadcrumbs.html' with current_category=object.category %}
 
 <h1> Product name: {{ object.name }} </h1>
 

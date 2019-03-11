@@ -1,0 +1,14 @@
+{% for ancestor in category_qset %}
+    <a href="{% url 'view_category' ancestor.my_hash ancestor.slug %}">
+        {{ ancestor.name }} 
+    </a>
+    > 
+{% endfor %}
+
+{% if current_category %}
+    {% with current_category as c %}
+        <a href="{% url 'view_category' c.my_hash c.slug %}">
+                {{c.name}}
+            </a>
+    {% endwith %}
+{% endif %}

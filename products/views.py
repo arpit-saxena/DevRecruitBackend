@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.views.generic.detail import DetailView
+from django.views.generic import ListView
 
 from .models import Product, Category, Images
 from .forms import ProductForm, CategoryForm, ImageForm
@@ -101,15 +102,31 @@ def viewProduct(request, my_hash, slug):
     return viewProductClass.as_view()(request, product=product,
     category_qset=product.category.get_ancestors())
 
-def viewCategory(request, my_hash, slug):
-    category, need_to_redirect = redirecter(
-        my_hash,
-        slug,
-        hash_info.CATEGORY,
-        Category
-    )
+class ProductsByCategoryView(ListView):
+    template_name = 'products/view_products_by_category.html'
+    queryset = Product.objects.all()
+    model = Product
 
-    if need_to_redirect:
-        return redirect(category, permanent=True)
-        
-    return HttpResponse("YAY!")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_qset'] = self.category.get_ancestors(include_self=True)
+        return context
+
+    def get_queryset(self):
+        category, need_to_redirect = redirecter(
+            self.kwargs['my_hash'],
+            self.kwargs['slug'],
+            hash_info.CATEGORY,
+            Category
+        )
+
+        if need_to_redirect:
+            return redirect(category, permanent=True)
+
+        category_queryset = category.get_descendants(include_self=True)
+        self.queryset = Product.objects.all().filter(
+            category__in=category_queryset
+        )
+        self.category = category
+        print('yay')
+        return self.queryset

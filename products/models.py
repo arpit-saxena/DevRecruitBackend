@@ -57,7 +57,8 @@ class Product(models.Model):
     category = models.ForeignKey(
         'Category',
         models.SET_NULL,
-        null=True
+        null=True,
+        related_name='products'
     )
     price = models.DecimalField(
         "Price of the product (in INR)",
