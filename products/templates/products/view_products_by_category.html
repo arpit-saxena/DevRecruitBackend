@@ -9,11 +9,7 @@ Category:
         Category: 
         {% include 'products/category_breadcrumbs.html' with category_qset=product.category.get_ancestors current_category=product.category %}
         <br><br>
-        <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a>
-        : {{ product.description }} <br>
-        Sold by: <a href="{{ product.added_by.get_absolute_url }}">
-            {{ product.added_by.get_full_name }}
-        </a>
+        {% include 'products/product_card.html' with show_userinfo=True %}
     </li>
     <br>
 {% endfor %}

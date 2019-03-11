@@ -18,4 +18,6 @@ def viewUser(request, my_hash, slug):
     if need_to_redirect:
         return redirect(user, permanent=True)
 
-    return HttpResponse("YAY!")
+    return render(request, 'users/viewuser.html', {
+        'user': user
+    })

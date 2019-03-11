@@ -1,0 +1,18 @@
+<b> Profile page: {{ user.get_full_name }} </b>
+
+<ul>
+
+<li> First name: {{ user.first_name }} </li>
+<li> Last name: {{ user.last_name }} </li>
+<li> Joined on: {{ user.date_joined }} </li>
+
+</ul>
+
+Products added by {{ user.first_name }}:
+<ul>
+    {% for product in user.products_added.all %}
+        <li>
+        {% include 'products/product_card.html' with show_userinfo=False %}
+        </li>
+    {% endfor %}
+</ul>
