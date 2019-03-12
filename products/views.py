@@ -5,6 +5,7 @@ from django.forms import modelformset_factory
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 from .models import Product, Category, Images
 from .forms import ProductForm, CategoryForm, ImageForm, ModReviewForm
@@ -142,10 +143,22 @@ class ProductsByCategoryView(ListView):
         category_queryset = category.get_descendants(include_self=True)
         self.queryset = Product.objects.all().filter(
             category__in=category_queryset
-        )
+        ).filter(approved=True)
         self.category = category
         print('yay')
         return self.queryset
+
+class UnmoderatedProductsByCategoryView(ProductsByCategoryView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unmoderated'] = True
+        return context
+
+    def get_queryset(self):
+        qset = super().get_queryset()
+        qset2 = Product.objects.all().filter(reviewed_by_mod=False)
+        qset = (qset | qset2).distinct()
+        return qset
 
 @login_required
 def modifyProduct(request, my_hash, slug):

@@ -1,27 +1,12 @@
 {% load socialaccount %}
 
-{% include 'navbar.html' with dont_show_navbar=True %}
-
-{% if user.is_authenticated %}
-
-<p>Welcome {{ user.first_name }} !!!</p>
-<p><a href="{% url 'account_logout' %}">Log out</a>
-
-{% else %}
-
-<p><a href="{% url 'account_signup' %}">Sign Up</a></p>
-<p><a href="{% url 'account_login' %}">Log In </a></p>
-<p><a href="{% provider_login_url 'google' %}">Log In with Google</a></p>
-
-{% endif %}
-
-<br><br>
+{% include 'navbar.html' %}
 
 <a href="{% url 'view_all_categories' %}"> Browse by categories </a>
 
 <br><br>
 
-Here are the latest moderated products(to see all the products, 
+Here are the latest moderated products (to see all the products, 
 <a href="{% url 'view_all_products' %}">click here</a>
 ):
 {% include 'products/view_all_products.html' %}
