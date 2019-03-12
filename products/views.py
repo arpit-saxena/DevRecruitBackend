@@ -206,3 +206,8 @@ def modifyProduct(request, my_hash, slug):
             'formset': formset,
         }
     )
+
+def ViewAllCategories(request):
+    return render(request, "products/view_all_categories.html", {
+        'categories': Category.objects.all()
+})
