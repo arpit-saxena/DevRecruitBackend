@@ -4,5 +4,7 @@ from . import views
 urlpatterns = [
     path('add', views.addProduct, name='add_product'),
     path('<my_hash>/<slug:slug>/', views.viewProduct,
-    name='view_product')
+    name='view_product'),
+    path('<my_hash>/<slug:slug>/modify', views.modifyProduct,
+    name='modify_product'),
 ]

@@ -95,6 +95,12 @@ class Product(models.Model):
             "my_hash": self.my_hash,
         })
 
+    def get_modify_url(self):
+        return reverse("modify_product", kwargs={
+            'slug': self.slug,
+            'my_hash': self.my_hash,
+        })
+
 class Transaction(models.Model):
     seller = models.ForeignKey(
         'users.CustomUser',

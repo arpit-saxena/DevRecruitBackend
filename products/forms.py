@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ImageField
+from django.forms import ModelForm, ImageField, ClearableFileInput
 from .models import Category, Product, Images
 from mptt.forms import TreeNodeChoiceField
 from django import forms
@@ -18,7 +18,7 @@ class ProductForm(ModelForm):
         ]
 
 class ImageForm(ModelForm):
-    image = ImageField(label='Image')    
+    image = ImageField(label='Image', widget=ClearableFileInput)    
     class Meta:
         model = Images
         fields = ('image', )

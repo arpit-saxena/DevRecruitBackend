@@ -24,6 +24,13 @@
     {% endif %}
 {% endif %}
 
+{% if request.user == product.added_by %}
+    <a href="{{ product.get_modify_url }}">
+        Edit product details
+    </a>
+    <br><br>
+{% endif %}
+
 {% if not product.reviewed_by_mod or product.approved %}
 
 <b> Category: </b>
@@ -50,7 +57,7 @@ Seller: <a href="{% url 'view_user' object.added_by.my_hash object.added_by.slug
 <b> Product Images: </b>
 <ul style="list-style-type:none">
 {% for image in product.product_image.all %}
-    <li><img src = "/{{ image.image.url }}" /></li>
+    <li><img src = "{{ image.image.url }}" /></li>
 {% endfor %}
 </ul>
 

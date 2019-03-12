@@ -4,11 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
+from django.core.exceptions import PermissionDenied
 
 from .models import Product, Category, Images
 from .forms import ProductForm, CategoryForm, ImageForm, ModReviewForm
 
 from django.utils.text import slugify
+from users.templatetags.user_in_group import is_moderator
 
 import hash_info
 
@@ -144,3 +146,63 @@ class ProductsByCategoryView(ListView):
         self.category = category
         print('yay')
         return self.queryset
+
+@login_required
+def modifyProduct(request, my_hash, slug):
+    product, need_to_redirect = redirecter(
+        my_hash,
+        slug,
+        hash_info.PRODUCT,
+        Product
+    )
+
+    if need_to_redirect:
+        url = product.get_absolute_url() + 'modify/'
+        return redirect(url, permanent=True)
+    
+    if(product.added_by != request.user and not is_moderator(request.user)):
+        raise PermissionDenied
+    
+    ImageFormSet = modelformset_factory(
+        Images,
+        form=ImageForm,
+        extra=5,
+        max_num=5,
+    )
+
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, instance=product)
+        formset = ImageFormSet(
+            request.POST,
+            request.FILES,
+        )
+        if product_form.is_valid() and formset.is_valid():
+            product = product_form.save(commit=False)
+            product.added_by = request.user
+            product.category = product_form.cleaned_data['category']
+            product.slug = slugify(product_form.cleaned_data['name'])
+            product.save()
+            product.my_hash = hash_info.PRODUCT.encode(product.id)
+            product.save()
+
+            Images.objects.all().filter(product=product).delete()
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['image']
+                    photo = Images(product=product, image=image)
+                    photo.save()
+
+            return redirect(product)
+    else:
+        product_form = ProductForm(instance=product)
+        product_form.fields['category'].initial = [product.category.id]
+        formset = ImageFormSet(queryset=Images.objects.filter(product=product))
+
+    return render(
+        request,
+        'products/addproduct.html',
+        {
+            'product_form': product_form,
+            'formset': formset,
+        }
+    )
