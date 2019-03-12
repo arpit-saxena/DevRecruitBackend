@@ -1,4 +1,30 @@
+{% load user_in_group %}
+
 {% include 'navbar.html' %}
+
+{% if not product.approved and not product.reviewed_by_mod %}
+    {% if not request.user|is_moderator %}
+        <b style="color:red">
+            Note: This product has not yet been approved by any moderator.<br>
+            We are not responsible for the contents of this page.
+        </b>
+    {% else %}
+        <b style="color:red">
+            Unapproved product. Please review it and take necessary actions.
+        </b>
+    {% endif %}
+    <br><br>
+{% endif %}
+
+{% if product.reviewed_by_mod and not product.approved %}
+    Product has been viewed by moderation and has not been approved.<br>
+    {% if request.user == product.added_by %}
+        Moderation commented: <br>
+        {{ product.mod_review }} <br>
+    {% endif %}
+{% endif %}
+
+{% if not product.reviewed_by_mod or product.approved %}
 
 <b> Category: </b>
 {% include 'products/category_breadcrumbs.html' with current_category=object.category %}
@@ -36,4 +62,17 @@ Seller: <a href="{% url 'view_user' object.added_by.my_hash object.added_by.slug
 {% else %}
     Please <a href = "{% url 'account_login' %}?next={{ request.path }}"> login </a>
     to buy the product.
+{% endif %}
+
+{% if request.user|is_moderator and not product.approved and not product.reviewed_by_mod %}
+<form action="{{ request.path }}" method="post">
+    <br><br>
+    <b style="color:red">
+        {% csrf_token %}
+        {{ form }}
+    </b>
+    <input type="submit" value="Submit">
+</form>
+{% endif %}
+
 {% endif %}

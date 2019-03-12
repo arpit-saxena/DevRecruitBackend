@@ -1,6 +1,7 @@
 from django.forms import ModelForm, ImageField
 from .models import Category, Product, Images
 from mptt.forms import TreeNodeChoiceField
+from django import forms
 
 class ProductForm(ModelForm):
     category = TreeNodeChoiceField(
@@ -30,3 +31,7 @@ class CategoryForm(ModelForm):
             'name',
             'description'
         ]
+
+class ModReviewForm(forms.Form):
+    approve = forms.BooleanField(label="Approve?", required=False)
+    comments = forms.CharField(required=False)

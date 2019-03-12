@@ -6,7 +6,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 
 from .models import Product, Category, Images
-from .forms import ProductForm, CategoryForm, ImageForm
+from .forms import ProductForm, CategoryForm, ImageForm, ModReviewForm
 
 from django.utils.text import slugify
 
@@ -86,6 +86,7 @@ class viewProductClass(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_qset'] = self.kwargs.get('category_qset')
+        context['form'] = self.kwargs.get('form')
         return context
     
 def viewProduct(request, my_hash, slug):
@@ -94,13 +95,26 @@ def viewProduct(request, my_hash, slug):
         slug,
         hash_info.PRODUCT,
         Product
-    )   
+    )
+
+    if request.method == 'POST' and request.user.groups.filter(name='Moderators').exists():
+        form = ModReviewForm(request.POST)
+        if form.is_valid():
+            product.approved = form.cleaned_data['approve']
+            product.mod_review = form.cleaned_data['comments']
+            product.reviewed_by_mod = True
+            if form.cleaned_data['approve']:
+                product.approved_by = request.user
+            product.save()
+            return redirect(product)
+    elif request.method == 'GET':
+        form = ModReviewForm()
 
     if need_to_redirect:
         return redirect(product, permanent=True)
 
     return viewProductClass.as_view()(request, product=product,
-    category_qset=product.category.get_ancestors())
+    category_qset=product.category.get_ancestors(), form=form)
 
 class ProductsByCategoryView(ListView):
     template_name = 'products/view_products_by_category.html'

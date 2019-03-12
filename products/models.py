@@ -39,13 +39,28 @@ class Product(models.Model):
     name = models.TextField("Product name")
     description = models.TextField("Product description")
     time_added = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(
+        "Product approved by moderators",
+        default=False,
+        blank=True,
+    )
+    mod_review = models.TextField(
+        "Review sent by moderator",
+        null=True,
+        blank=True,
+    )
+    reviewed_by_mod = models.BooleanField(
+        "Was product reviewed by Moderator",
+        default=False,
+        blank=True
+    )
     approved_by = models.ForeignKey(
         'users.CustomUser',
         models.SET_NULL,
         null=True,
         blank=True,
         related_name='products_approved',
-        limit_choices_to={'is_staff': True},
+        limit_choices_to={'groups__name': 'Moderators'},
     )
     added_by = models.ForeignKey(
         'users.CustomUser',
