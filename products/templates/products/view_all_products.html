@@ -1,0 +1,11 @@
+<ul>
+{% for product in product_list %}
+    <li>
+        Category: 
+        {% include 'products/category_breadcrumbs.html' with category_qset=product.category.get_ancestors current_category=product.category %}
+        <br><br>
+        {% include 'products/product_card.html' with show_userinfo=True %}
+    </li>
+    <br>
+{% endfor %}
+</ul>
