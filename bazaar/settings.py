@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ow2^h8h1ve0b!yt0!tjr_kevu_1p+7mmo&(@b$lr%-!jkbbquk'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 # Application definition
@@ -49,9 +49,10 @@ INSTALLED_APPS = [
     'mptt', #Tree traversal for categories
     'django_cleanup', #Remove images stored locally on record deletion
 
-    # 'index.apps.IndexConfig',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
+
+    'storages',
 
 ]
 
@@ -93,8 +94,7 @@ WSGI_APPLICATION = 'bazaar.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        #os.environ.get('DATABASE_URL', 'postgres://admin:admin@127.0.0.1/db')
-        'postgres://admin:admin@127.0.0.1/db'
+        os.environ.get('DATABASE_URL')
     )
 }
 
@@ -162,3 +162,17 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.UserSignupForm'
 
 SOCIALACCOUNT_AUTO_SIGNUP = False
+
+# Amazon S3 settings
+AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
+
+# For HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True

@@ -36,4 +36,4 @@ urlpatterns = [
     path('product/', include('products.urls')),
     path('category/', include('products.category_urls')),
     path('unmoderated-products/', views.AllProductsView.as_view(), name='view_all_products')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
