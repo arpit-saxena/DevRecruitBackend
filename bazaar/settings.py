@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ow2^h8h1ve0b!yt0!tjr_kevu_1p+7mmo&(@b$lr%-!jkbbquk'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 # Application definition
@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'mptt', #Tree traversal for categories
     'django_cleanup', #Remove images stored locally on record deletion
 
-    # 'index.apps.IndexConfig',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
 
@@ -93,8 +92,7 @@ WSGI_APPLICATION = 'bazaar.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        #os.environ.get('DATABASE_URL', 'postgres://admin:admin@127.0.0.1/db')
-        'postgres://admin:admin@127.0.0.1/db'
+        os.environ.get('DATABASE_URL')
     )
 }
 
@@ -162,3 +160,7 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.UserSignupForm'
 
 SOCIALACCOUNT_AUTO_SIGNUP = False
+
+# For HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
