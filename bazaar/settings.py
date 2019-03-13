@@ -54,6 +54,8 @@ INSTALLED_APPS = [
 
     'storages',
 
+    'django_imgur',
+
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -179,3 +181,8 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 # For HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+# Imgur 
+IMGUR_CONSUMER_ID = os.environ.get('IMGUR_CONSUMER_ID')
+IMGUR_CONSUMER_SECRET = os.environ.get('IMGUR_CONSUMER_SECRET')
+IMGUR_USERNAME = os.environ.get('IMGUR_USERNAME')
