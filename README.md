@@ -5,6 +5,9 @@ A web application for selling and buying products within a small community.
 https://iitd-bazaar.herokuapp.com/
 
 ## Features
+- One needs to sign in to add and buy products
+  - One can sign up using the sign up form, or
+  - Sign in with google
 - Users can add products.
 - Products are then staged for approval with the moderation. Unmoderated products don't show on any page by default. Viewers can choose to view the unmoderated products.
 - Moderator can either approve or disapprove the product, and give a comment
@@ -14,6 +17,7 @@ https://iitd-bazaar.herokuapp.com/
 - Products can currently be bought by contacting the sellers directly
 - The products also have a category and any viewer can view products by category.
 - Categories are hierarchical and breadcrumbs are displayed on each relevant page.
+- The admin can set moderators
 
 ## Technical Features
 - URL design
@@ -29,10 +33,21 @@ https://iitd-bazaar.herokuapp.com/
     - Transaction (not used currently)
   
   !['Database diagram'](https://imgur.com/tPaIS6U.png)
-  
- ## Current Known Bugs and Problems
+
+## Users to test with
+- User1
+  - Email: user1@gmail.com
+  - Pasword: mLLYgqWt8n6KVN7
+- User2
+  - Email: user2@gmail.com
+  - Password: fPfLsxwPxYE8VE8
+- Mod (moderator)
+  - Email: mod@gmail.com
+  - Password: 7aWr7shz8YKkBVB  
+
+## Current Known Bugs and Problems
  - [#13](https://github.com/arpit-saxena/DevRecruitBackend/issues/13): Currently, images are not supported by the hosted app as Heroku doesn't support it and S3 wasn't configured properly
  - No Payment system
  
- ## Contributing
- Create a fork and a pull request, or raise an issue. Also, look at the current issues
+## Contributing
+Create a fork and a pull request, or raise an issue. Also, look at the current issues
