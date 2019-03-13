@@ -1,0 +1,21 @@
+{% include 'navbar.html' %}
+
+<b><big> View products by category </big></b> <br><br>
+
+{% if not unmoderated %}
+    <a href="{{ request.path }}/unmoderated">
+        Click here
+    </a> to view unmoderated products of this category
+{% else %}
+    <b style="color:red">
+        NOTE: This section contains products that have not been reviewed
+        by the moderation. Proceed at own risk.
+    </b>
+{% endif %}
+
+<br><br>
+
+Category:
+{% include 'products/category_breadcrumbs.html' %}
+
+{% include 'products/view_all_products.html' %}

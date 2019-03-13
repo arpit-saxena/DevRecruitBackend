@@ -16,7 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+from . import views
+
 urlpatterns = [
-    path('', include('index.urls')),
+    path('', views.HomePageView.as_view(), name='home'),
+
+    # Django admin
     path('admin/', admin.site.urls),
-]
+
+    # User Management
+    path('user/', include('users.urls')),
+    path('users/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
+
+    #Products
+    path('product/', include('products.urls')),
+    path('category/', include('products.category_urls')),
+    path('unmoderated-products/', views.AllProductsView.as_view(), name='view_all_products'),
+    path('moderate/', views.UnmoderatedProductsView.as_view(), name='moderate')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
