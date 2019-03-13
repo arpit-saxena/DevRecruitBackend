@@ -45,6 +45,9 @@ https://iitd-bazaar.herokuapp.com/
   - Email: mod@gmail.com
   - Password: 7aWr7shz8YKkBVB  
 
+PS: You can also login with your own Google account. You will be redirected to Google where you can see what all information you will be sharing with app. The app won't be able to see your password or any other info than what's mentioned on the Google log in.
+
+
 ## Current Known Bugs and Problems
  - [#13](https://github.com/arpit-saxena/DevRecruitBackend/issues/13): Currently, images are not supported by the hosted app as Heroku doesn't support it and S3 wasn't configured properly
  - No Payment system
