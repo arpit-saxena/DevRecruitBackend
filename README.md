@@ -22,7 +22,7 @@ https://iitd-bazaar.herokuapp.com/
 ## Technical Features
 - URL design
   - URLs are designed so as to be as human-readable as possible
-  - URLs for product, user and category pages are of the form <hash>/<slug> where hash is a string of 6 or more characters that uniquely identify the page and slug is a human readable string. 
+  - URLs for product, user and category pages are of the form /hash/slug where hash is a string of 6 or more characters that uniquely identify the page and slug is a human readable string. 
     - The application only relies on hash to fetch the page. If the slugs don't match, the user gets redirected to the page with the correct slug with a 301 redirect (moved permanently). This has an advantage of easily allowing the product title, category name to be changed (on which the slug is based on) without invalidating the previous links.
 - Database design
   - We have the following models:
